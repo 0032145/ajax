@@ -19,37 +19,35 @@
     </tr>
   </thead>
   <tbody id="tBody">
-    
   </tbody>
 </table>
 <button onclick="goPage('/ajax/insert')">글쓰기</button>
+<button onclick="refresh()">재조회</button>
 <script>
-	window.onload = function(){
+	function refresh(){
 		var xhr = new XMLHttpRequest();
-		xhr.open('GET','/ajax/board/list');
+		xhr.open('GET','/ajax/board/list?cmd=list');
 		xhr.onreadystatechange = function(){
 			if(xhr.readyState==4){
 				if(xhr.status==200){
 					var list = JSON.parse(xhr.responseText);
 					var tBody = document.getElementById('tBody');
-					var html ='';
+					var html = '';
 					for(var i=0;i<list.length;i++){
 						html += '<tr>';
 						html += '<td>' + list[i].biNum + '</td>';
 						html += '<td><a href="/views/ajax/view?biNum=' + list[i].biNum + '">' + list[i].biTitle + '</a></td>';
 						html += '<td>' + list[i].credat + '</td>';
-						html += '<td>' + list[i].cretim + '</td>';
-						html += '</tr>'
+						html += '<td>' + list[i].cretim+ '</td>';
+						html += '</tr>';
 					}
 					tBody.innerHTML = html;
-					//document.write(xhr.responseText);
 				}
 			}
 		}
 		xhr.send();
 	}
-
-
+	window.onload = refresh;
 </script>
 </body>
 </html>

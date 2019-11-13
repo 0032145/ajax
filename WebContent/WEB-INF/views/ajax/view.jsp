@@ -8,47 +8,56 @@
 <jsp:include page="/WEB-INF/views/common/head.jsp"></jsp:include>
 </head>
 <body>
-<div class="container">
+	<div class="container">
 		<h3>게시물정보</h3>
 		<table class="table table-bordered">
 			<tr>
 				<th>번호</th>
-				<td></td>
+				<td data-col="biNum"></td>
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td></td>
+				<td data-col="biTitle"></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td></td>
+				<td data-col="biContent"></td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td></td>
+				<td data-col="uiNum"></td>
 			</tr>
 			<tr>
 				<th>작성일</th>
-				<td></td>
+				<td data-col="credat"></td>
 			</tr>
 			<tr>
 				<th>작성시간</th>
-				<td></td>
+				<td data-col="cretim"></td>
 			</tr>
-			<tr>
-				<th colspan="2"><button>저장</button></th>
-			</tr>
+			<th colspan="2">
+					<button onclick="goPage('/ajax/update?biNum=${param.biNum}')">수정</button>
+					<button onclick="goPage('/ajax/list')">리스트가기</button>
+				</th>
 		</table>
 	</div>
 	<script>
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET','/ajax/board/view?biNum=${param.biNum}');
-	xhr.setRequestHeader('Content-Type','application/json');
-	xhr.onreadystatechange = function(){
-	if(xhr.readyState==4){
-		if(xhr.status==200){
-			document.write();
+	window.onload = function(){
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET','/ajax/board/view?cmd=view&biNum=${param.biNum}');
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState==4){
+				if(xhr.status==200){
+					var board = JSON.parse(xhr.responseText);
+					var tds = document.querySelectorAll('[data-col]');
+					for(var td of tds){
+						var col = td.getAttribute('data-col');
+						td.innerHTML = board[col];
+					}
+				}
+			}
 		}
+		xhr.send();
 	}
 	</script>
 </body>

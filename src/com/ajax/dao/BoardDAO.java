@@ -9,4 +9,5 @@ public interface BoardDAO {
 	int insertBoard(Map<String,String> board);
 	int updateBoard(Map<String,String> board);
 	int deleteBoard(Map<String,String> board);
+	Map<String, String> selectBoard(int biNum);
 }

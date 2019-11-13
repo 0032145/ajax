@@ -9,4 +9,5 @@ public interface BoardService {
 	Map<String,String> insertBoard(Map<String,String> board);
 	Map<String,String> updateBoard(Map<String,String> board);
 	Map<String,String> deleteBoard(Map<String,String> board);
+	Map<String, String> selectBoard(int biNum);
 }

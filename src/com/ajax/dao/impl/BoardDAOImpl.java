@@ -131,4 +131,43 @@ public class BoardDAOImpl implements BoardDAO {
 		BoardDAO bdao = new BoardDAOImpl();
 		System.out.println(bdao.selectBoardList(null));
 	}
+
+
+@Override
+public Map<String, String> selectBoard(int biNum) {
+	Connection con = null;
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+	try {
+		con = DBCon.getCon();
+		String sql = "select * from board_info where bi_num=?";
+		ps = con.prepareStatement(sql);
+		ps.setInt(1, biNum);
+		rs = ps.executeQuery();
+		if(rs.next()) {
+			Map<String,String> b = new HashMap<>();
+			b.put("biNum", rs.getString("bi_num"));
+			b.put("biTitle", rs.getString("bi_title"));
+			b.put("biContent", rs.getString("bi_content"));
+			b.put("uiNum", rs.getString("ui_num"));
+			b.put("cretim", rs.getString("cretim"));
+			b.put("credat", rs.getString("credat"));
+			b.put("moddat", rs.getString("moddat"));
+			b.put("modtim", rs.getString("modtim"));
+			b.put("active", rs.getString("active"));
+			return b;
+		}
+	}catch(SQLException e) {
+		e.printStackTrace();
+	}finally {
+		try {
+			if(con!=null) {
+				con.close();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	return null;
+}
 }

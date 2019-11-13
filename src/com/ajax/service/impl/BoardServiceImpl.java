@@ -42,4 +42,10 @@ public class BoardServiceImpl implements BoardService {
 		return null;
 	}
 
+	@Override
+	public Map<String, String> selectBoard(int biNum) {
+		return bdao.selectBoard(biNum);
+	}
+
 }
+
