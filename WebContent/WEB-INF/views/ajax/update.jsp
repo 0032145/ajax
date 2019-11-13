@@ -28,14 +28,18 @@
 				<td><input type="number" id="uiNum"></td>
 			</tr>
 			<tr>
-				<th colspan="2">
-					<button onclick="init()">수정</button>
-
-				</th>
+				<th colspan="2"><button onclick="update()">수정</button></th>
 			</tr>
 		</table>
 	</div>
 	<script>
+	function update(){
+		
+		
+		
+	}
+	
+	
 	function ajax(conf){
 		var xhr = new XMLHttpRequest();
 		xhr.open(conf.method,conf.url);
