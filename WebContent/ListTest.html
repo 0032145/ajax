@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="rDiv">
+		<div id="inputDiv">
+			<label for="id">아이디 :</label> <input type="text" id="id" onkeyup="findId(this)">
+		</div>
+		<div id="button">
+			<button id="findIdBtn">찾기</button>
+		</div>
+		<ui id="uiId"> </ui>
+	</div>
+	<li id="black">black</li>
+	<li id="white">white</li>
+	<li id="red">red</li>
+	<li id="green">green</li>
+	<li id="blue">blue</li>
+	<li id="yellow">yellow</li>
+	<script>
+function findId(f){
+	var xhr = new XMLHttpRequest();
+	var url = '/listtest?';
+	if(f.value.trim().length>0){
+		url += 'id=' + f.value.trim();
+	}
+	xhr.open('GET',url);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState==xhr.DONE){
+			var html ='';
+			if(xhr.status==200){
+				var strIdList = JSON.parse(xhr.responseText);
+				for(var id of strIdList){
+					html += '<li>' + id + '</li>';
+				}
+			}
+			document.querySelector('#uiId').innerHTML = html;
+		}
+	}
+	xhr.send();
+}
+</script>
+</body>
+</html>
